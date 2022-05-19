@@ -25,6 +25,7 @@ async function run() {
 
 
 
+
         app.get('/inventories', async (req, res) => {
             const query = {};
             const cursor = inventoryCollection.find(query);
@@ -59,6 +60,30 @@ async function run() {
         });
 
 
+
+        // user email  data
+        app.get("/myitem", async (req, res) => {
+            const email = req.query.email;
+            const query = { email: email };
+            const cursor = inventoryCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        });
+
+        // update stock of inventory item
+        app.put('/inventory/:id', async (req, res) => {
+            const id = req.params.id;
+            const quantity = req.body.quantity;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updatedDoc = {
+                $set: {
+                    quantity: quantity,
+                }
+            };
+            const result = await inventoryCollection.updateOne(filter, updatedDoc, options);
+            res.send(result)
+        })
 
 
 
