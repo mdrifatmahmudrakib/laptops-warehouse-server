@@ -101,6 +101,10 @@ app.get('/', (req, res) => {
     res.send('running warehouse server');
 });
 
+app.get('/test', (req, res) => {
+    res.send('running test server');
+});
+
 
 app.listen(port, () => {
     console.log('listining to port', port);
