@@ -24,7 +24,7 @@ async function run() {
 
 
 
-
+        // load all data from mongodb
 
         app.get('/inventories', async (req, res) => {
             const query = {};
